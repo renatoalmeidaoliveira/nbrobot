@@ -1,10 +1,21 @@
-"""
-from rest_framework.viewsets import ModelViewSet
-from nb_robot.models import MyModel1
-from .serializers import MyModel1Serializer
+from netbox.api.viewsets import NetBoxModelViewSet
+
+from .. import models
+from . import serializers
+
+# Project ViewSets
+
+class ProjectViewSet(NetBoxModelViewSet):
+    queryset = models.Project.objects.all()
+    serializer_class = serializers.ProjectSerializer
+
+# Resource ViewSets
+class ResourceViewSet(NetBoxModelViewSet):
+    queryset = models.Resource.objects.all()
+    serializer_class = serializers.ResourceSerializer
 
 
-class MyModel1ViewSet(ModelViewSet):
-    queryset = MyModel1.objects.all()
-    serializer_class = MyModel1Serializer
-"""
+# Variable ViewSets
+class VariableViewSet(NetBoxModelViewSet):
+    queryset = models.Variable.objects.all()
+    serializer_class = serializers.VariableSerializer

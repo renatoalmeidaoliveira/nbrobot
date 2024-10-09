@@ -1,0 +1,115 @@
+{% extends 'generic/object.html' %}
+{% load buttons %}
+{% load helpers %}
+{% load perms %}
+{% load i18n %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  {% if object.object %}
+    <li class="breadcrumb-item">
+      <a href="{% url 'core:job_list' %}?object_type={{ object.object_type_id }}">{{ object.object|meta:"verbose_name_plural"|bettertitle }}</a>
+    </li>
+    {% with parent_jobs_viewname=object.object|viewname:"jobs" %}
+      <li class="breadcrumb-item">
+        <a href="{% url parent_jobs_viewname pk=object.object.pk %}">{{ object.object }}</a>
+      </li>
+    {% endwith %}
+  {% else %}
+    <li class="breadcrumb-item">
+      <a href="{% url 'core:job_list' %}?name={{ object.name|urlencode }}">{{ object.name }}</a>
+    </li>
+  {% endif %}
+{% endblock breadcrumbs %}
+
+{% block control-buttons %}
+  {% if request.user|can_delete:object %}
+    {% delete_button object %}
+  {% endif %}
+{% endblock control-buttons %}
+
+{% block tabs %}
+  <ul class="nav nav-tabs" role="presentation">
+    <li class="nav-item">
+      <a class="nav-link{% if not tab %} active{% endif %}" href="{% url 'plugins:nb_robot:project_job_result' pk=object.pk %}">{{ object|meta:"verbose_name"|bettertitle }}</a>
+    </li>
+    <li class="nav-item"></li>
+      <a class="nav-link" href="{% url 'plugins:nb_robot:project_job_result_xml' pk=object.pk %}">XML</a>
+    </li>
+    <li class="nav-item"></li>
+      <a class="nav-link" href="{% url 'plugins:nb_robot:project_job_result_result' pk=object.pk %}">Results</a>
+    </li>
+  </ul>
+{% endblock tabs %}
+
+{% block content %}
+  <div class="row mb-3">
+    <div class="col col-md-6">
+      <div class="card">
+        <h2 class="card-header">{% trans "Job" %}</h2>
+        <table class="table table-hover attr-table">
+          <tr>
+            <th scope="row">{% trans "Project" %}</th>
+            <td>
+              <a href={{ object.object.get_absolute_url }}>{{ object.object }}</a>
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">{% trans "Status" %}</th>
+            <td>{% badge object.get_status_display object.get_status_color %}</td>
+          </tr>
+          {% if object.error %}
+            <tr>
+              <th scope="row">{% trans "Error" %}</th>
+              <td>{{ object.error }}</td>
+            </tr>
+          {% endif %}
+          <tr>
+            <th scope="row">{% trans "Created By" %}</th>
+            <td>{{ object.user|placeholder }}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="col col-md-6">
+      <div class="card">
+        <h2 class="card-header">{% trans "Scheduling" %}</h2>
+        <table class="table table-hover attr-table">
+          <tr>
+            <th scope="row">{% trans "Created" %}</th>
+            <td>{{ object.created|isodatetime }}</td>
+          </tr>
+          <tr>
+            <th scope="row">{% trans "Scheduled" %}</th>
+            <td>
+              {{ object.scheduled|isodatetime|placeholder }}
+              {% if object.interval %}
+                ({% blocktrans with interval=object.interval %}every {{ interval }} minutes{% endblocktrans %})
+              {% endif %}
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">{% trans "Started" %}</th>
+            <td>{{ object.started|isodatetime|placeholder }}</td>
+          </tr>
+          <tr>
+            <th scope="row">{% trans "Completed" %}</th>
+            <td>{{ object.completed|isodatetime|placeholder }}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col col-md-12">
+      <div class="card">
+        <h2 class="card-header">{% trans "Result" %}</h2>
+        <div class="card-body">
+          <pre>{{ object.data.result  }}</pre>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+{% endblock %}

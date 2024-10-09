@@ -24,14 +24,14 @@ def get_version(rel_path):
 
 
 setup(
-    name='',
+    name='nb-robot',
     version=get_version('nb_robot/version.py'),
-    description='',
+    description='Robot Framework Integration Plugin',
     long_description=long_description,
     long_description_content_type="text/markdown",
     url='',
-    author='',
-    author_email='',
+    author='Renato Almeida de Oliveira Zaroubin',
+    author_email='renato.almeida.oliveira@gmail.com',
     install_requires=[
         'robotframework'
     ],

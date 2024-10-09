@@ -18,6 +18,8 @@ services:
     volumes:
       - ./configuration.py:/opt/netbox/netbox/netbox/configuration.py
       - ../nb_robot:/source/nb_robot
+      - ../scripts:/opt/netbox/netbox/scripts
+      - ../robot_projects:/opt/netbox/netbox/robot_projects
     tty: true
   worker:
     build:
@@ -31,6 +33,8 @@ services:
     volumes:
       - ./configuration.py:/opt/netbox/netbox/netbox/configuration.py
       - ../nb_robot:/source/nb_robot
+      - ../scripts:/opt/netbox/netbox/scripts
+      - ../robot_projects:/opt/netbox/netbox/robot_projects
     tty: true
   postgres:
     image: postgres:12
