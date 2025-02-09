@@ -7,6 +7,7 @@ from django.db.models.functions import Lower
 from django.conf import settings
 from django import forms
 import shutil
+import json
 
 
 
@@ -185,7 +186,8 @@ class Variable(NetBoxModel):
     @property
     def value(self):
         if self.type == choices.VariableTypeChoices.TYPE_FILTER:
-            return self.saved_filter
+            output = json.dumps(self.saved_filter.parameters, indent=4)
+            return f"```{output}```"
         else:
             return self.query_str
 

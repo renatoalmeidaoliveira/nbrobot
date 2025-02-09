@@ -17,7 +17,7 @@ The nb-robot plugin extends the capabilities of NetBox by seamlessly integrating
 | Plugin Version | NetBox Version | Tested on                      |
 | ------------- |:-------------| :-----:|
 | 1.0.0          | > 4.1.0                | 4.1.0                          |
-
+| 2.0.2         | > 4.2.0                   | 4.2.2                 |
 
 ## Installation
 

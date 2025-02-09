@@ -18,7 +18,7 @@ class RenderResults(Node):
 
         suite = self.suite.resolve(context)
 
-        return self.render_accordion(suite['tests'])
+        return self.render_accordion(suite['suite']['tests'])
     
     def render_accordion(self, items, level="0"):
         base_html = '<div class="accordion" id="results">\n'

@@ -37,7 +37,7 @@ services:
       - ../robot_projects:/opt/netbox/netbox/robot_projects
     tty: true
   postgres:
-    image: postgres:12
+    image: postgres:13
     env_file: dev.env
     volumes:
       - pgdata_nb_robot:/var/lib/postgresql/data
