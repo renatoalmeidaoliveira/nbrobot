@@ -44,7 +44,7 @@ Context:
 {% endblock tabs %}
 
 {% block content %}
-    Alguma coisa {{ custom_tab.badge }}
+    {{ custom_tab.badge }}
     {% block table_controls %}
         {% include 'inc/table_controls_htmx.html' with table_modal=table_config %}
     {% endblock table_controls %}

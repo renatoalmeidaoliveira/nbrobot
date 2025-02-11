@@ -8,6 +8,7 @@ RUN mkdir -p /opt
 
 RUN pip install --upgrade pip
 RUN pip install --upgrade setuptools
+RUN pip install worktory
 
 # -------------------------------------------------------------------------------------
 # Install NetBox

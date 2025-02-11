@@ -26,7 +26,7 @@ stop:
 
 destroy:
 	docker compose -f ${COMPOSE_FILE} -p ${BUILD_NAME} down
-	docker volume rm -f ${BUILD_NAME}_pgdata_nb_risk
+	docker volume rm -f ${BUILD_NAME}_pgdata_nb_robot
 
 nbshell:
 	docker compose -f ${COMPOSE_FILE} -p ${BUILD_NAME} run netbox python manage.py nbshell

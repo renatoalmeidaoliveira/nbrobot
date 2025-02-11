@@ -94,14 +94,6 @@ class Resource(NetBoxModel, SyncedDataMixin, ):
     class Meta:
         constraints = (
             models.UniqueConstraint(
-                Lower('name'),
-                 name="%(app_label)s_%(class)s_unique_resource_name"
-            ),
-            models.UniqueConstraint(
-                Lower('slug'),
-                 name="%(app_label)s_%(class)s_unique_resource_slug"
-            ),
-            models.UniqueConstraint(
                 fields=("slug", "project"),
                 name="%(app_label)s_%(class)s_unique_project_resource_slug",
             ),
@@ -193,10 +185,6 @@ class Variable(NetBoxModel):
 
     class Meta:
         constraints = (
-            models.UniqueConstraint(
-                Lower('name'),
-                 name="%(app_label)s_%(class)s_unique_variable_name"
-            ),
             models.UniqueConstraint(
                 fields=("name", "project"),
                 name="%(app_label)s_%(class)s_unique_project_variable_name",
